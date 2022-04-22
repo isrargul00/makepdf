@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>makepdf</title>
+</head>
+
+<body>
+
+    <div class="col-md-4">
+        <div class="card">
+            <div class="header">
+                <h4 class="title"><i class="pe-7s-print"></i> <i class="pe-7s-look"></i> Bill Preview</h4>
+            </div>
+            <hr>
+            <div class="content">
+                <iframe type="application/pdf" id="billview" style="height:50rem;width:100%;"></iframe>
+            </div>
+        </div>
+    </div>
+    
+    <script src="./makepdf.js"></script>
+    <script src="./vfs_font.js"></script>
+
+
+    <script>
+        billpdf('billview');
+        function billpdf(x) {
+            var docDefinition = {
+                pageSize: {
+                    width: 205,
+                    height: 'auto'
+                },
+                fontSize: 11,
+                pageMargins: [5, 10],
+                content: [
+                    { text: 'Chaar Achaar', fontSize: 14, alignment: 'center' },
+                    { text: '0309-4ACHAAR \n', fontSize: 11, alignment: 'center' },
+                    { text: 'contact@chaarachaar.com \n\n', fontSize: 11, alignment: 'center' },
+            ]
+		};
+        var targetElement = document.getElementById(x);
+        const pdfDocGenerator = pdfMake.createPdf(docDefinition);
+        pdfMake.createPdf(docDefinition).getDataUrl(function (dataURL) {
+            document.getElementById(x).src = dataURL;
+        });
+    }
+    </script>
+</body>
+
+</html>
